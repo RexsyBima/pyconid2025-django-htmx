@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from .forms import TodoForm
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.contrib import messages
 from .models import Todo
 
@@ -49,3 +49,29 @@ def delete_todo(request: HttpRequest, pk):
         return redirect("get_all_todos")  # redirect to your list page
     # otherwise show confirmation page
     return render(request, "todo/confirm_delete.html", {"todo": todo})
+
+
+def delete_element(request: HttpRequest):
+    return HttpResponse("")
+
+
+def get_all_todos_htmx(request: HttpRequest):
+    todos = Todo.objects.all()
+    return render(request, "todo/all_todos_htmx.html", {"todos": todos})
+
+
+def get_todo_htmx(request: HttpRequest, pk: int):
+    todo = get_object_or_404(Todo, pk=pk)
+    return render(request, "todo/todo_htmx.html", {"todo": todo})
+
+
+def create_todo_htmx(request: HttpRequest):
+    if request.method == "POST":
+        form = TodoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Todo created successfully")
+            return redirect("get_all_todos")  # adjust to your URL name
+    else:
+        form = TodoForm()
+    return render(request, "todo/create_todo_htmx.html", {"form": form})

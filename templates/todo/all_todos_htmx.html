@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block body %}
+{% for todo in todos %}
+
+
+<h1>
+  {{ todo.name }}
+  <a hx-get="{% url 'get_todo_htmx' todo.id %}" hx-target="#todo-tooltips">get detail</a>
+  <a href="{% url 'update_todo' todo.id %}">update todo</a>
+  <a href="{% url 'delete_todo' todo.id %}">delete todo</a>
+</h1>
+
+{% endfor %}
+
+<a hx-get="{% url 'create_todo_htmx' %}" hx-target="#todo-tooltips">create todo</a>
+
+<div id="todo-tooltips">
+
+</div>
+
+
+{% endblock body %}

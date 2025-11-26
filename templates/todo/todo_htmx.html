@@ -1,0 +1,4 @@
+<h2>{{ todo.name }}</h2>
+<h1>{{ todo.description }}</h1>
+
+<h1 hx-get="{% url 'delete_element' %}" hx-target="#todo-detail">Close Detail!</h1>
