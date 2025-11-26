@@ -1,0 +1,22 @@
+{% for todo in todos %}
+
+
+<h1>
+  {{ todo.name }}
+  <a href="{% url 'get_todo' todo.id %}">get detail</a>
+  <a href="{% url 'update_todo' todo.id %}">update todo</a>
+  <a href="{% url 'delete_todo' todo.id %}">delete todo</a>
+</h1>
+
+{% endfor %}
+
+<a href="{% url 'create_todo' %}">create todo</a>
+
+
+{% if messages %}
+{% for message in messages %}
+<div>
+  {{ message }}
+</div>
+{% endfor %}
+{% endif %}
