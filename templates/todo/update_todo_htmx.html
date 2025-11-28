@@ -1,0 +1,7 @@
+<h2>Updating Todo</h2>
+
+<form hx-post="{% url 'update_todo_htmx' todo.id %}" hx-target="#todo-{{todo.id}}" hx-swap="outerHTML" method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Update</button>
+</form>

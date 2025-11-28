@@ -1,6 +1,6 @@
 <h2>Create Todo</h2>
 
-<form hx-post="{% url 'create_todo_htmx' %}" hx-target="#todo-list" hx-swap="beforeend" method="post">
+<form hx-post="{% url 'create_todo_htmx_v2' %}" hx-target="#todo-list" hx-swap="beforeend" method="post">
   {% csrf_token %}
   {{ form.as_p }}
 
