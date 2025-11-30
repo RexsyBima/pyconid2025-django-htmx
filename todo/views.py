@@ -116,5 +116,9 @@ def delete_todo_htmx(request: HttpRequest, pk):
     todo = get_object_or_404(Todo, pk=pk)
     if request.method == "DELETE":
         todo.delete()
-    return HttpResponse("")
+        count = len(Todo.objects.all())
+        # return HttpResponse("")
+        return HttpResponse(
+            f' <h1 id="todos-length" hx-swap-oob="true">Todos length is: {count}</h1>'
+        )
     # return render(request, "todo/update_todo_htmx.html", {})
