@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, render, redirect
+from django.views.decorators.csrf import csrf_exempt
 from .forms import TodoForm
 from django.http import HttpRequest, HttpResponse
 from django.contrib import messages
@@ -109,9 +110,11 @@ def update_todo_htmx(request: HttpRequest, pk):
     return render(request, "todo/update_todo_htmx.html", {"form": form, "todo": todo})
 
 
+@csrf_exempt
 def delete_todo_htmx(request: HttpRequest, pk):
     """WIP"""
     todo = get_object_or_404(Todo, pk=pk)
     if request.method == "DELETE":
         todo.delete()
-    return render(request, "todo/update_todo_htmx.html", {})
+    return HttpResponse("")
+    # return render(request, "todo/update_todo_htmx.html", {})

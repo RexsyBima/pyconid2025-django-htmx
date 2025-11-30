@@ -21,4 +21,9 @@ urlpatterns = [
     ),
     path("delete/", views.delete_element, name=views.delete_element.__name__),
     path("delete/<int:pk>", views.delete_todo, name=views.delete_todo.__name__),
+    path(
+        "delete_todo_htmx/<int:pk>",
+        views.delete_todo_htmx,
+        name=views.delete_todo_htmx.__name__,
+    ),
 ]
