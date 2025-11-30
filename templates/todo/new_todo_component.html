@@ -2,6 +2,6 @@
   {{ todo.name }}
   <a hx-get="{% url 'get_todo_htmx' todo.id %}" hx-target="#todo-tooltips">get detail</a>
   <a hx-get="{% url 'update_todo_htmx' todo.id %}" hx-target="#todo-tooltips">update todo</a>
-  <a hx-delete="{% url 'delete_todo' todo.id %}"
+  <a hx-delete="{% url 'delete_todo_htmx' todo.id %}"
     hx-confirm="are you sure you want to delete this todo {{ todo.name }}?">delete todo</a>
 </h1>
