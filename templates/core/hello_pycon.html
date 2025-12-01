@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block body %}
+<button hx-get="{% url 'get_hello_pycon_answer' %}" hx-trigger="click" hx-target="#target-output"
+  hx-swap="innerHTML">Click Me!</button>
+<h1 id="target-output"></h1>
+{% endblock body %}

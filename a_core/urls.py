@@ -17,8 +17,15 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
+from .views import hello_pycon, get_hello_pycon_answer
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("todos/", include("todo.urls")),
+    path("hello_pycon/", hello_pycon, name=hello_pycon.__name__),
+    path(
+        "get_hello_pycon_answer/",
+        get_hello_pycon_answer,
+        name=get_hello_pycon_answer.__name__,
+    ),
 ]
