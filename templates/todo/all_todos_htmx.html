@@ -6,7 +6,7 @@
     {{ todo.name }}
     <a hx-get="{% url 'get_todo_htmx' todo.id %}" hx-target="#todo-tooltips">get detail</a>
     <a hx-get="{% url 'update_todo_htmx' todo.id %}" hx-target="#todo-tooltips">update todo</a>
-    <a hx-delete="{% url 'delete_todo_htmx' todo.id %}" hx-target="#todo-{{todo.id}}" hx-swap="outerHTML"
+    <a hx-delete="{% url 'delete_todo_htmx' todo.id %}" hx-target="#todo-{{todo.id}}"
       hx-confirm="are you sure you want to delete this todo {{ todo.name }}?">delete todo</a>
   </h1>
 
@@ -15,7 +15,7 @@
 
 <a hx-get="{% url 'create_todo_htmx' %}" hx-target="#todo-tooltips">create todo v1</a>
 <a hx-get="{% url 'create_todo_htmx_v2' %}" hx-target="#todo-tooltips">create todo v2</a>
-<h1 id="todos-length">Todos length: {{ count }}</h1>
+<h1 id="todos-length">Todos length is: {{ count }}</h1>
 
 <div id="todo-tooltips"></div>
 

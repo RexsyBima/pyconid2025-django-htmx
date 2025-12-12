@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from .forms import TodoForm
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseBadRequest
 from django.contrib import messages
 from .models import Todo
 
@@ -52,8 +52,11 @@ def delete_todo(request: HttpRequest, pk):
     return render(request, "todo/confirm_delete.html", {"todo": todo})
 
 
+@csrf_exempt
 def delete_element(request: HttpRequest):
-    return HttpResponse("")
+    if request.method == "DELETE":
+        return HttpResponse("")
+    return HttpResponseBadRequest("Invalid Request")
 
 
 def get_all_todos_htmx(request: HttpRequest):
@@ -85,7 +88,6 @@ def create_todo_htmx_v2(request: HttpRequest):
         if form.is_valid():
             todo = form.save()
             count = len(Todo.objects.all())
-            print(count)
             return render(
                 request,
                 "todo/new_todo_component_v2.html",
@@ -112,13 +114,14 @@ def update_todo_htmx(request: HttpRequest, pk):
 
 @csrf_exempt
 def delete_todo_htmx(request: HttpRequest, pk):
-    """WIP"""
     todo = get_object_or_404(Todo, pk=pk)
     if request.method == "DELETE":
         todo.delete()
         count = len(Todo.objects.all())
-        # return HttpResponse("")
-        return HttpResponse(
-            f' <h1 id="todos-length" hx-swap-oob="true">Todos length is: {count}</h1>'
-        )
-    # return render(request, "todo/update_todo_htmx.html", {})
+        return render(request, "todo/delete_todo_htmx.html", {"count": count})
+    return HttpResponseBadRequest("")
+
+    # return HttpResponse(
+    #     f' <h1 id="todos-length" hx-swap-oob="true">Todos length is: {count}</h1>'
+    # )
+    ## return render(request, "todo/update_todo_htmx.html", {})
